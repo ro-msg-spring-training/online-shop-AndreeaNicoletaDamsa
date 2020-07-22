@@ -3,48 +3,31 @@ package ro.msg.learning.shop.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
 @Data
-public class Customer {
+@Table(name="customer")
+public class Customer  {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Integer id;
-
-
+    @Column
     private String firstName;
-
+    @Column
     private String lastName;
-
+    @Column
     private String username;
-
+    @Column
     private String password;
-
+    @Column
     private String emailAddress;
 
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-
-    public void setLastName(String lastname) {
-        this.lastName = lastname;
-    }
+    @OneToMany(mappedBy = "customer")
+    private List<ShopOrder> shopOrders;
 
 
     @Override
