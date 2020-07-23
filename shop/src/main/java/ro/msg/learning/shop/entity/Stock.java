@@ -7,16 +7,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="stock")
-public class Stock {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class Stock extends GeneralEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
     @ManyToOne(targetEntity = Stock.class)
-    @JoinColumn(name="id")
+    @JoinColumn(name="product")
     private Product product;
     @ManyToOne(targetEntity = Stock.class)
-    @JoinColumn(name="id")
+    @JoinColumn(name="location")
     private Location location;
 
 }

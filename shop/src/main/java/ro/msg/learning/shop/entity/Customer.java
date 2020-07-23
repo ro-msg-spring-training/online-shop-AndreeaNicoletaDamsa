@@ -10,11 +10,11 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="customer")
-public class Customer  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class Customer extends GeneralEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
     @Column
     private String firstName;
     @Column
@@ -29,6 +29,13 @@ public class Customer  {
     @OneToMany(mappedBy = "customer")
     private List<ShopOrder> shopOrders;
 
+    public Customer(String firstName, String lastName, String username, String password, String emailAddress) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.emailAddress = emailAddress;
+    }
 
     @Override
     public String toString() {

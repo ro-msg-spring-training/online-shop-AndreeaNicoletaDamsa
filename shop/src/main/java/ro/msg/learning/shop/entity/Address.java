@@ -13,6 +13,6 @@ public class Address {
     private String city;
     @Column
     private String country;
-    @Column
-    private String street_address;
+    @Column(name="street_address")
+    private String streetAddress;
 }

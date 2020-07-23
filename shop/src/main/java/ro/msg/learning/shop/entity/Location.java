@@ -8,11 +8,11 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="location")
-public class Location  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class Location extends GeneralEntity   {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
     @Column
     private String name;
     @Embedded

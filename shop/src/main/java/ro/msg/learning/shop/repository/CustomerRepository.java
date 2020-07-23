@@ -6,4 +6,6 @@ import ro.msg.learning.shop.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+
+    Customer save(Customer customer);
 }

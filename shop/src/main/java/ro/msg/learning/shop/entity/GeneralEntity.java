@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class GeneralEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
 }

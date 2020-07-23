@@ -9,22 +9,22 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="shop_order")
-public class ShopOrder  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class ShopOrder  extends GeneralEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
     @ManyToOne(targetEntity = Location.class)
-    @JoinColumn(name="id")
+    @JoinColumn(name="location")
     private Location location;
     @ManyToOne(targetEntity = Customer.class)
-    @JoinColumn(name="id")
+    @JoinColumn(name="customer")
     private Customer customer;
     @Column
     private LocalDateTime creation_time;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "shop_order")
+    @OneToMany(mappedBy = "shopOrder")
     private List<OrderDetail> orderDetails;
 
 

@@ -8,11 +8,22 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="product")
-public class Product  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class Product  extends GeneralEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
+
+    public Product(String name, String description, Float price, Double weight, ProductCategory productCategory, Supplier supplier, String imageURL) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.weight = weight;
+        this.productCategory = productCategory;
+        this.supplier = supplier;
+        this.imageURL = imageURL;
+    }
+
     @Column
     private String name;
     @Column
@@ -22,15 +33,17 @@ public class Product  {
     @Column
     private Double weight;
     @ManyToOne(targetEntity = ProductCategory.class)
-    @JoinColumn(name="id")
-    private ProductCategory product_category;
+    @JoinColumn(name="category")
+    private ProductCategory productCategory;
     @ManyToOne(targetEntity = Supplier.class)
-    @JoinColumn(name="id")
+    @JoinColumn(name="supplier")
     private Supplier supplier;
-    @Column
-    private String ImageURL;
+    @Column(name = "image_url")
+    private String imageURL;
     @OneToMany(mappedBy = "product")
     private List<Stock> stocks;
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
+
+    public Product(){};
 }

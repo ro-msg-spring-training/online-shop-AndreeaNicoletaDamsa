@@ -7,16 +7,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "order_detail")
-public class OrderDetail  {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column
-        private Integer id;
+public class OrderDetail extends GeneralEntity  {
+//        @Id
+//        @GeneratedValue(strategy = GenerationType.AUTO)
+//        @Column
+//        private Integer id;
         @ManyToOne(targetEntity = ShopOrder.class)
-        @JoinColumn(name="id")
-        private ShopOrder shop_order;
+        @JoinColumn(name="shop_order")
+        private ShopOrder shopOrder;
         @ManyToOne(targetEntity = Product.class)
-        @JoinColumn(name="id")
+        @JoinColumn(name="product")
         private Product product;
         @Column
         private Integer quantity;

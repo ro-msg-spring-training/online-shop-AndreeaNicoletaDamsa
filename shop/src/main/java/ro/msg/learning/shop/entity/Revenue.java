@@ -8,13 +8,13 @@ import java.time.LocalDate;
 @Data
 @Table(name="revenue")
 @Entity
-public class Revenue{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
+public class Revenue extends GeneralEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column
+//    private Integer id;
     @ManyToOne(targetEntity = Location.class)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "location")
     private Location location;
     @Column
     private LocalDate date_of;
