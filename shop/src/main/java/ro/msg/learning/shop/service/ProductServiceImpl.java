@@ -11,18 +11,20 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@Transactional
+
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
 
+    @Transactional
     @Override
     public void save(Product product) {
         productRepository.findById(product.getId()).ifPresentOrElse(foundProduct ->
         {throw new IllegalArgumentException("This product already exists");},()->productRepository.save(product) );
     }
 
+    @Transactional
     @Override
     public void delete(Product product) {
         productRepository.findById(product.getId()).ifPresentOrElse(foundProduct -> {
@@ -32,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
         });
     }
 
+    @Transactional
     @Override
     public void update(Product product) {
         Optional<Product> optionalProduct = productRepository.findById(product.getId());

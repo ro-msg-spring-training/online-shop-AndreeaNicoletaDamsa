@@ -9,10 +9,6 @@ import java.util.List;
 @Entity
 @Table(name="product")
 public class Product  extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
 
     public Product(String name, String description, Float price, Double weight, ProductCategory productCategory, Supplier supplier, String imageURL) {
         this.name = name;
@@ -40,10 +36,27 @@ public class Product  extends GeneralEntity {
     private Supplier supplier;
     @Column(name = "image_url")
     private String imageURL;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    @Transient
     private List<Stock> stocks;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    @Transient
     private List<OrderDetail> orderDetails;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", productCategory=" + productCategory +
+                ", supplier=" + supplier +
+                ", imageURL='" + imageURL + '\'' +
+                ", stocks=" + stocks +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
 
     public Product(){};
 }

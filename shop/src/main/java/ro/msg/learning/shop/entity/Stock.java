@@ -8,15 +8,14 @@ import javax.persistence.*;
 @Entity
 @Table(name="stock")
 public class Stock extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
+
     @ManyToOne(targetEntity = Stock.class)
     @JoinColumn(name="product")
     private Product product;
     @ManyToOne(targetEntity = Stock.class)
     @JoinColumn(name="location")
     private Location location;
+
+    private Integer quantity;
 
 }

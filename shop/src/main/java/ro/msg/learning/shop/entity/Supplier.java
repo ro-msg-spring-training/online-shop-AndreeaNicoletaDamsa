@@ -9,10 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "supplier")
 public class Supplier extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
+
 
     public Supplier(String name) {
         this.name = name;
@@ -20,8 +17,11 @@ public class Supplier extends GeneralEntity {
 
     @Column
     private String name;
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY)
+    @Transient
     private List<Product> products;
+
+    public Supplier(){}
 
 
 

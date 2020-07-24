@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.ProductDto;
 import ro.msg.learning.shop.entity.Product;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ProductConverter {
 
@@ -21,5 +24,10 @@ public class ProductConverter {
         productDto.setCategoryId(product.getProductCategory().getId());
         productDto.setSupplierId(product.getSupplier().getId());
         return productDto;
+    }
+
+    public List<ProductDto> convertAll(List<Product> products){
+       List<ProductDto> productDtos = products.stream().map(product -> this.convert(product)).collect(Collectors.toList());
+       return productDtos;
     }
 }

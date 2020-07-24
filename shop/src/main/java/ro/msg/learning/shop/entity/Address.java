@@ -15,4 +15,10 @@ public class Address {
     private String country;
     @Column(name="street_address")
     private String streetAddress;
+
+    public Address(String city, String country, String streetAddress) {
+        this.city = city;
+        this.country = country;
+        this.streetAddress = streetAddress;
+    }
 }

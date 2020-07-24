@@ -9,10 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "product_category")
 public class ProductCategory extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
 
     public ProductCategory(String name, String description) {
         this.name = name;
@@ -23,6 +19,8 @@ public class ProductCategory extends GeneralEntity {
     private String name;
     @Column
     private String description;
-    @OneToMany(mappedBy = "productCategory", cascade= CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productCategory", cascade= CascadeType.ALL)
+    @Transient
     private List<Product> products;
+    public ProductCategory(){}
 }

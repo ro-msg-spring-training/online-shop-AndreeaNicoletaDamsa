@@ -82,6 +82,15 @@ CREATE TABLE revenue(
   FOREIGN KEY(location) REFERENCES location(id)
 );
 
+CREATE TABLE stock(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product INT,
+    location INT,
+    quantity INT,
+    FOREIGN KEY(location) REFERENCES location(id),
+    FOREIGN KEY(product) REFERENCES product(id)
+);
+
 
 
 

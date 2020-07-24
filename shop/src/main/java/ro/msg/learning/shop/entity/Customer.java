@@ -11,10 +11,6 @@ import java.util.List;
 @Data
 @Table(name="customer")
 public class Customer extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
     @Column
     private String firstName;
     @Column

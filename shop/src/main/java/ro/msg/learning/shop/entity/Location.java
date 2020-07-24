@@ -9,18 +9,15 @@ import java.util.List;
 @Entity
 @Table(name="location")
 public class Location extends GeneralEntity   {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
+
     @Column
     private String name;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
     private List<Stock> stocks;
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
     private List<ShopOrder> shopOrders;
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
     private List<Revenue> revenues;
 }

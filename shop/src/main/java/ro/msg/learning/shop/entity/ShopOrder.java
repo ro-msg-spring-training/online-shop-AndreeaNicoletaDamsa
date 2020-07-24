@@ -10,10 +10,7 @@ import java.util.List;
 @Entity
 @Table(name="shop_order")
 public class ShopOrder  extends GeneralEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column
-//    private Integer id;
+
     @ManyToOne(targetEntity = Location.class)
     @JoinColumn(name="location")
     private Location location;
@@ -24,7 +21,7 @@ public class ShopOrder  extends GeneralEntity {
     private LocalDateTime creation_time;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "shopOrder")
+    @OneToMany(mappedBy = "shopOrder",fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
 
 

@@ -8,10 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail extends GeneralEntity  {
-//        @Id
-//        @GeneratedValue(strategy = GenerationType.AUTO)
-//        @Column
-//        private Integer id;
+
         @ManyToOne(targetEntity = ShopOrder.class)
         @JoinColumn(name="shop_order")
         private ShopOrder shopOrder;
@@ -20,4 +17,10 @@ public class OrderDetail extends GeneralEntity  {
         private Product product;
         @Column
         private Integer quantity;
+
+        public OrderDetail(ShopOrder shopOrder, Product product, Integer quantity) {
+                this.shopOrder = shopOrder;
+                this.product = product;
+                this.quantity = quantity;
+        }
 }
