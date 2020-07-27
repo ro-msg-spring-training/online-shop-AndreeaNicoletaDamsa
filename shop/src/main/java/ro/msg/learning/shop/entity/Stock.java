@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Table(name="stock")
 public class Stock extends GeneralEntity {
 
-    @ManyToOne(targetEntity = Stock.class)
+    @ManyToOne
     @JoinColumn(name="product")
     private Product product;
-    @ManyToOne(targetEntity = Stock.class)
+    @ManyToOne
     @JoinColumn(name="location")
     private Location location;
 

@@ -14,10 +14,17 @@ public class Location extends GeneralEntity   {
     private String name;
     @Embedded
     private Address address;
-    @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "location",fetch = FetchType.EAGER)
     private List<Stock> stocks;
     @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
     private List<ShopOrder> shopOrders;
     @OneToMany(mappedBy = "location",fetch = FetchType.LAZY)
     private List<Revenue> revenues;
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", address=" + address;
+    }
 }

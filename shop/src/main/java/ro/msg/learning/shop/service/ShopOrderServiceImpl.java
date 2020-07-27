@@ -31,7 +31,7 @@ public class ShopOrderServiceImpl implements ShopOrderService {
 
     @Override
     public ShopOrder createOrder(ShopOrderDto shopOrderDto) {
-         List< SelectedProductDto> selectedProductDtos = locationStrategy.select(shopOrderDto);
+         List<SelectedProductDto> selectedProductDtos = locationStrategy.select(shopOrderDto);
          List<Stock> stocks = stockRepository.findAll();
          for (SelectedProductDto selectedProductDto: selectedProductDtos){
              List<Stock> stocks1 = stocks.stream().filter(stock -> stock.getProduct().getId() == selectedProductDto.getProduct().getId() && stock.getLocation().getId() == selectedProductDto.getLocation().getId()).collect(Collectors.toList());

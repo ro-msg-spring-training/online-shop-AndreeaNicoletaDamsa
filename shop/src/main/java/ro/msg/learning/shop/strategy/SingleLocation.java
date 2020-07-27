@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.strategy;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -15,8 +16,6 @@ import ro.msg.learning.shop.repository.StockRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@Primary
 public class SingleLocation implements LocationStrategy {
 
     @Autowired
@@ -32,12 +31,15 @@ public class SingleLocation implements LocationStrategy {
         Location singleLoaction = null;
         for (Location location : locations) {
             List<OrderDetailDto> orderDetailDtos = shopOrderDto.getOrderDetailDtos();
+            boolean badLoc = false;
             for (OrderDetailDto orderDetailDto : orderDetailDtos) {
-                if (!isElement(location.getStocks(), orderDetailDto))
+                if (!isElement(location.getStocks(), orderDetailDto)) {
+                    badLoc = true;
                     break;
-                else {
-                    singleLoaction = location;
                 }
+            }
+            if (badLoc == false){
+                singleLoaction = location;
             }
         }
         if (singleLoaction == null) {

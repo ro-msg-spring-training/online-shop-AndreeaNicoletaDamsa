@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Entity
 public class Revenue extends GeneralEntity {
 
-    @ManyToOne(targetEntity = Location.class)
+    @ManyToOne
     @JoinColumn(name = "location")
     private Location location;
     @Column

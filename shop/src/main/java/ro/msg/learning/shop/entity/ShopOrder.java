@@ -11,10 +11,10 @@ import java.util.List;
 @Table(name="shop_order")
 public class ShopOrder  extends GeneralEntity {
 
-    @ManyToOne(targetEntity = Location.class)
-    @JoinColumn(name="location")
+    @ManyToOne
+    @JoinColumn(name="shipped_from")
     private Location location;
-    @ManyToOne(targetEntity = Customer.class)
+    @ManyToOne
     @JoinColumn(name="customer")
     private Customer customer;
     @Column
@@ -22,6 +22,7 @@ public class ShopOrder  extends GeneralEntity {
     @Embedded
     private Address address;
     @OneToMany(mappedBy = "shopOrder",fetch = FetchType.LAZY)
+    @Transient
     private List<OrderDetail> orderDetails;
 
 

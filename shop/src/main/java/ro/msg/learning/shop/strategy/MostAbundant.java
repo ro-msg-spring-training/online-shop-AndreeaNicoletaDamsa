@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.strategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.OrderDetailDto;
 import ro.msg.learning.shop.dto.SelectedProductDto;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Component
 public class MostAbundant implements LocationStrategy {
 
     @Autowired
@@ -30,6 +30,10 @@ public class MostAbundant implements LocationStrategy {
             Location location = getLocation(orderDetailDto);
             if (location != null){
                 finalList.add( new SelectedProductDto(productRepository.findById(orderDetailDto.getId()).get(),location, orderDetailDto.getQuantity()));
+            }
+            else
+            {
+                throw new RuntimeException("The product with id"+orderDetailDto.getId()+" cannot be found anywhere!");
             }
         }
         return finalList;

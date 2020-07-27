@@ -22,4 +22,12 @@ public class ShopOrderDto {
     private String streetAddress;
 
     private List<OrderDetailDto> orderDetailDtos;
+
+    public ShopOrderDto(LocalDateTime creation_time, String city, String country, String streetAddress, List<OrderDetailDto> orderDetailDtos) {
+        this.creation_time = creation_time;
+        this.city = city;
+        this.country = country;
+        this.streetAddress = streetAddress;
+        this.orderDetailDtos = orderDetailDtos;
+    }
 }

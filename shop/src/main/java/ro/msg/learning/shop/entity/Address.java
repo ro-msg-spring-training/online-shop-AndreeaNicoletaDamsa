@@ -21,4 +21,5 @@ public class Address {
         this.country = country;
         this.streetAddress = streetAddress;
     }
+    public Address(){}
 }
