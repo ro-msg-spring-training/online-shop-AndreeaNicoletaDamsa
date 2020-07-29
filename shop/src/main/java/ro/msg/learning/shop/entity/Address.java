@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 
 @Data
 @Embeddable
+@NoArgsConstructor
 public class Address {
     @Column
     private String city;
@@ -21,5 +23,4 @@ public class Address {
         this.country = country;
         this.streetAddress = streetAddress;
     }
-    public Address(){}
 }

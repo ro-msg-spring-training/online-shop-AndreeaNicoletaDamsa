@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="product")
+@NoArgsConstructor
 public class Product  extends GeneralEntity {
 
     public Product(String name, String description, Float price, Double weight, ProductCategory productCategory, Supplier supplier, String imageURL) {
@@ -58,5 +60,4 @@ public class Product  extends GeneralEntity {
                 '}';
     }
 
-    public Product(){};
 }

@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 @Data
 @Table(name="revenue")
 @Entity
+@NoArgsConstructor
 public class Revenue extends GeneralEntity {
 
     @ManyToOne

@@ -1,9 +1,7 @@
 package ro.msg.learning.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.dto.ShopOrderDto;
 import ro.msg.learning.shop.entity.ShopOrder;
 import ro.msg.learning.shop.repository.LocationRepository;
@@ -23,5 +21,11 @@ public class OrderController {
     public ShopOrder placeOrder(@RequestBody ShopOrderDto shopOrderDto) {
         ShopOrder order = shopOrderService.createOrder(shopOrderDto);
         return order;
+    }
+
+    @GetMapping(path = "/order/{id}")
+    public ShopOrder getOrderWithId(@PathVariable Integer id){
+        ShopOrder shopOrder = shopOrderService.findById(id);
+        return shopOrder;
     }
 }

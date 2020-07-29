@@ -9,5 +9,6 @@ import java.util.List;
 public interface ShopOrderService {
 
     ShopOrder createOrder(ShopOrderDto shopOrderDto);
+    ShopOrder findById(Integer id);
 
 }

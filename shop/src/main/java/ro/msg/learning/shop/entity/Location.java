@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="location")
+@NoArgsConstructor
 public class Location extends GeneralEntity   {
 
     @Column
@@ -26,5 +28,10 @@ public class Location extends GeneralEntity   {
         return "Location{" +
                 "name='" + name + '\'' +
                 ", address=" + address;
+    }
+
+    public Location(String name, Address address) {
+        this.name = name;
+        this.address = address;
     }
 }

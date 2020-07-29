@@ -18,15 +18,16 @@ import java.util.stream.Collectors;
 
 public class SingleLocation implements LocationStrategy {
 
-    @Autowired
-    private StockRepository stockRepository;
-    @Autowired
     private ProductRepository productRepository;
-    @Autowired
     private LocationRepository locationRepository;
 
+    public SingleLocation(ProductRepository productRepository, LocationRepository locationRepository) {
+        this.productRepository = productRepository;
+        this.locationRepository = locationRepository;
+    }
+
     @Override
-    public List<SelectedProductDto> select(ShopOrderDto shopOrderDto) {
+    public List<SelectedProductDto> select(ShopOrderDto shopOrderDto) throws Exception {
         List<Location> locations = locationRepository.findAll();
         Location singleLoaction = null;
         for (Location location : locations) {
@@ -43,7 +44,7 @@ public class SingleLocation implements LocationStrategy {
             }
         }
         if (singleLoaction == null) {
-            throw new RuntimeException("There is no such location!");
+            throw new Exception("There is no such location!");
         } else {
             final Location finalLocation = singleLoaction;
             return shopOrderDto.getOrderDetailDtos().stream().map(orderDetailDto -> new SelectedProductDto(productRepository.findById(orderDetailDto.getId()).get(), finalLocation, orderDetailDto.getQuantity())).collect(Collectors.toList());

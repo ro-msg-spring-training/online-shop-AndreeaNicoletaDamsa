@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="customer")
+@NoArgsConstructor
 public class Customer extends GeneralEntity {
     @Column
     private String firstName;
@@ -38,4 +40,5 @@ public class Customer extends GeneralEntity {
         return "Person [firstName=" + this.firstName + ", lastName=" + this.lastName
                 + "]";
     }
+
 }

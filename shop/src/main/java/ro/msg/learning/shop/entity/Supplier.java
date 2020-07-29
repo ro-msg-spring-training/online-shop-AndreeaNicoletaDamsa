@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "supplier")
+@NoArgsConstructor
 public class Supplier extends GeneralEntity {
 
 
@@ -20,9 +22,5 @@ public class Supplier extends GeneralEntity {
     @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY)
     @Transient
     private List<Product> products;
-
-    public Supplier(){}
-
-
 
 }

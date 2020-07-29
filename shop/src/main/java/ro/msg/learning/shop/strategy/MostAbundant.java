@@ -13,18 +13,22 @@ import ro.msg.learning.shop.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
 public class MostAbundant implements LocationStrategy {
 
-    @Autowired
     private LocationRepository locationRepository;
-    @Autowired
     private ProductRepository productRepository;
 
+    public MostAbundant (LocationRepository locationRepository, ProductRepository productRepository){
+        this.locationRepository = locationRepository;
+        this.productRepository = productRepository;
+    }
+
     @Override
-    public List<SelectedProductDto> select(ShopOrderDto shopOrderDto) {
+    public List<SelectedProductDto> select(ShopOrderDto shopOrderDto) throws Exception {
         List<SelectedProductDto> finalList= new ArrayList<SelectedProductDto>();
         for (OrderDetailDto orderDetailDto: shopOrderDto.getOrderDetailDtos()){
             Location location = getLocation(orderDetailDto);
@@ -33,7 +37,7 @@ public class MostAbundant implements LocationStrategy {
             }
             else
             {
-                throw new RuntimeException("The product with id"+orderDetailDto.getId()+" cannot be found anywhere!");
+                throw new NoSuchElementException("The product with id"+orderDetailDto.getId()+" cannot be found anywhere!");
             }
         }
         return finalList;

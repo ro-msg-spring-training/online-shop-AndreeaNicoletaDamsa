@@ -35,11 +35,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional
-    @Override
-    public void update(Product product) {
+    public Product update(Product product) {
         Optional<Product> optionalProduct = productRepository.findById(product.getId());
-        optionalProduct.ifPresentOrElse(
-                foundProduct -> {
+        if (optionalProduct.isPresent()){
                         Product product1= optionalProduct.get();
                         product1.setName(product.getName());
                         product1.setDescription(product.getName());
@@ -49,10 +47,10 @@ public class ProductServiceImpl implements ProductService {
                         product1.setSupplier(product.getSupplier());
                         product1.setWeight(product.getWeight());
                         productRepository.save(product1);
-                },
-                () ->{ throw new IllegalArgumentException("The update cannot be done");}
-        );
+                        return product1;
 
+                }
+                else { throw new IllegalArgumentException("The update cannot be done");}
     }
 
     @Override
