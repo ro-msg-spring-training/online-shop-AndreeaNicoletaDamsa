@@ -11,7 +11,7 @@ CREATE TABLE customer (
 );
 
 INSERT INTO customer (first_name,last_name,username,password,email_address)
-VALUES('ceva','cec','sas','sde','sds');
+VALUES('ceva','cec','sas','$2y$12$p/kHCweEcIV.D5msEP5DUeYbEOeex9YNE89T9EmK5NGixpQwyxaO.','sds');
 
 DROP TABLE IF EXISTS product_category;
 CREATE TABLE product_category(

@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class ShopOrderDto {
 
-    private LocalDateTime creation_time;
+    private LocalDateTime creationTime;
 
     private String city;
 
@@ -23,8 +23,8 @@ public class ShopOrderDto {
 
     private List<OrderDetailDto> orderDetailDtos;
 
-    public ShopOrderDto(LocalDateTime creation_time, String city, String country, String streetAddress, List<OrderDetailDto> orderDetailDtos) {
-        this.creation_time = creation_time;
+    public ShopOrderDto(LocalDateTime creationTime, String city, String country, String streetAddress, List<OrderDetailDto> orderDetailDtos) {
+        this.creationTime = creationTime;
         this.city = city;
         this.country = country;
         this.streetAddress = streetAddress;

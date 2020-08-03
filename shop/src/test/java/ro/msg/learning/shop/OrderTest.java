@@ -1,6 +1,5 @@
 package ro.msg.learning.shop;
 
-import org.aspectj.weaver.ast.Or;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import ro.msg.learning.shop.dto.OrderDetailDto;
 import ro.msg.learning.shop.dto.SelectedProductDto;
 import ro.msg.learning.shop.dto.ShopOrderDto;
@@ -16,12 +14,7 @@ import ro.msg.learning.shop.entity.*;
 import ro.msg.learning.shop.repository.LocationRepository;
 import ro.msg.learning.shop.repository.ProductRepository;
 import ro.msg.learning.shop.repository.ShopOrderRepository;
-import ro.msg.learning.shop.repository.StockRepository;
-import ro.msg.learning.shop.service.ShopOrderService;
-import ro.msg.learning.shop.service.ShopOrderServiceImpl;
 import ro.msg.learning.shop.service.StockService;
-import ro.msg.learning.shop.service.StockServiceImpl;
-import ro.msg.learning.shop.strategy.LocationStrategy;
 import ro.msg.learning.shop.strategy.MostAbundant;
 import ro.msg.learning.shop.strategy.SingleLocation;
 
@@ -42,7 +35,7 @@ public class OrderTest {
     @InjectMocks
     private SingleLocation locationStrategySingleLocation;
 
-    private StockService stockService = new StockServiceImpl();
+    private StockService stockService = new StockService();
 
     @Mock
     private ShopOrderRepository shopOrderRepository;

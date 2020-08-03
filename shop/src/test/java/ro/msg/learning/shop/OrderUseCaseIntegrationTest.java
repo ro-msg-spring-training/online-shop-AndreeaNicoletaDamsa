@@ -1,30 +1,29 @@
 package ro.msg.learning.shop;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.server.ResponseStatusException;
 import ro.msg.learning.shop.dto.OrderDetailDto;
 import ro.msg.learning.shop.dto.ShopOrderDto;
 import ro.msg.learning.shop.entity.*;
 import ro.msg.learning.shop.repository.*;
 import ro.msg.learning.shop.service.ShopOrderService;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Profile("test")
+@ActiveProfiles("test")
 class OrderUseCaseIntegrationTest {
 
     @Autowired
@@ -44,6 +43,8 @@ class OrderUseCaseIntegrationTest {
 
     @Autowired
     private StockRepository stockRepository;
+
+    private final int  QUANTITY = 10;
 
     public void setupSuccess() {
 
@@ -66,15 +67,15 @@ class OrderUseCaseIntegrationTest {
         productRepository.save(product1);
         productRepository.save(product2);
 
-        Stock stock11 = new Stock(product1, location1, 10);
-        Stock stock12 = new Stock(product2, location2, 10);
-        Stock stock21 = new Stock(product1, location1, 10);
+        Stock stock11 = new Stock(product1, location1, QUANTITY);
+        Stock stock12 = new Stock(product2, location2, QUANTITY);
+        Stock stock21 = new Stock(product1, location1, QUANTITY);
         stockRepository.save(stock11);
         stockRepository.save(stock12);
         stockRepository.save(stock21);
     }
 
-    void setupFail(){
+    void setupFail() {
         Address address = new Address("f", "ff", "fff");
         Location location = new Location("numelocatie", address);
         locationRepository.save(location);
@@ -92,8 +93,8 @@ class OrderUseCaseIntegrationTest {
         productRepository.save(product1);
         productRepository.save(product2);
 
-        Stock stock11 = new Stock(product1, location1, 10);
-        Stock stock21 = new Stock(product1, location1, 10);
+        Stock stock11 = new Stock(product1, location1, QUANTITY);
+        Stock stock21 = new Stock(product1, location1, QUANTITY);
         stockRepository.save(stock11);
         stockRepository.save(stock21);
     }
@@ -106,31 +107,36 @@ class OrderUseCaseIntegrationTest {
         orderDetailDtos.add(new OrderDetailDto(1, 10));
         orderDetailDtos.add(new OrderDetailDto(2, 10));
         ShopOrderDto shopOrderDto = new ShopOrderDto(LocalDateTime.now(), address.getCity(), address.getCountry(), address.getStreetAddress(), orderDetailDtos);
-
+        List<Stock> stocks = findAllStocks(1);
+        Collections.sort(stocks,new Comparator<Stock>() {
+            public int compare(Stock o1, Stock o2) {
+                return (o2.getQuantity() - o1.getQuantity());
+            }
+        });
+        //System.out.println(stocks.get(0).toString());
         ShopOrder shopOrder1 = shopOrderService.createOrder(shopOrderDto);
-        assertThat(shopOrder1.getOrderDetails().size() == shopOrderDto.getOrderDetailDtos().size());
+        assertThat(shopOrder1.getOrderDetails().size()).isEqualTo(shopOrderDto.getOrderDetailDtos().size());
 
     }
 
     @Test
-    void missingStockFail(){
+    void missingStockFail() {
         setupFail();
         Address address = new Address("f", "ff", "fff");
         List<OrderDetailDto> orderDetailDtos = new ArrayList<>();
         orderDetailDtos.add(new OrderDetailDto(1, 10));
         orderDetailDtos.add(new OrderDetailDto(2, 10));
         ShopOrderDto shopOrderDto = new ShopOrderDto(LocalDateTime.now(), address.getCity(), address.getCountry(), address.getStreetAddress(), orderDetailDtos);
-        int exception = 0;
-        try {
-            ShopOrder shopOrder1 = shopOrderService.createOrder(shopOrderDto);
-        }catch (ResponseStatusException e){
-            exception =1;
-        }
-        if (exception == 0){
-            assert(false);
-        }
+        assertThrows(Exception.class, () -> {
+            shopOrderService.createOrder(shopOrderDto);
+        });
     }
 
+    public List<Stock> findAllStocks(int id){
+        List<Stock> stocks = new ArrayList<Stock>();
+        stockRepository.findAll().stream().filter(value-> value.getProduct().getId() == id).forEach(stocks::add);
+        return stocks;
+    }
 
 
 }

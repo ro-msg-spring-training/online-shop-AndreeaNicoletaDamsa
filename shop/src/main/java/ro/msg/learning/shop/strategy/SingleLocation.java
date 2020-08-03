@@ -1,9 +1,5 @@
 package ro.msg.learning.shop.strategy;
 
-import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.OrderDetailDto;
 import ro.msg.learning.shop.dto.SelectedProductDto;
 import ro.msg.learning.shop.dto.ShopOrderDto;
@@ -11,7 +7,6 @@ import ro.msg.learning.shop.entity.Location;
 import ro.msg.learning.shop.entity.Stock;
 import ro.msg.learning.shop.repository.LocationRepository;
 import ro.msg.learning.shop.repository.ProductRepository;
-import ro.msg.learning.shop.repository.StockRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +34,7 @@ public class SingleLocation implements LocationStrategy {
                     break;
                 }
             }
-            if (badLoc == false){
+            if (badLoc == false) {
                 singleLoaction = location;
             }
         }

@@ -1,6 +1,8 @@
 package ro.msg.learning.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.dto.ShopOrderDto;
 import ro.msg.learning.shop.entity.ShopOrder;
@@ -19,13 +21,17 @@ public class OrderController {
 
     @PostMapping(path = "/order")
     public ShopOrder placeOrder(@RequestBody ShopOrderDto shopOrderDto) {
-        ShopOrder order = shopOrderService.createOrder(shopOrderDto);
-        return order;
+        return shopOrderService.createOrder(shopOrderDto);
     }
 
     @GetMapping(path = "/order/{id}")
-    public ShopOrder getOrderWithId(@PathVariable Integer id){
-        ShopOrder shopOrder = shopOrderService.findById(id);
-        return shopOrder;
+    public ResponseEntity<ShopOrder> getOrderWithId(@PathVariable Integer id) {
+        ShopOrder shopOrder = null;
+        try {
+            shopOrder = shopOrderService.findById(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(shopOrder, HttpStatus.OK);
     }
 }

@@ -1,7 +1,6 @@
 package ro.msg.learning.shop.configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +21,14 @@ public class StrategyConfiguration {
 
 
     @Bean
-    @ConditionalOnProperty(prefix="strategy", name="name", havingValue="singleLocation")
-    public LocationStrategy singleLocation(){
+    @ConditionalOnProperty(prefix = "strategy", name = "name", havingValue = "singleLocation")
+    public LocationStrategy singleLocation() {
         return new SingleLocation(productRepository, locationRepository);
     }
 
     @Bean
-    @ConditionalOnProperty(prefix="strategy",name="name", havingValue="mostAbundant")
-    public LocationStrategy mostAbundant(){
-        return new MostAbundant(locationRepository,productRepository);
+    @ConditionalOnProperty(prefix = "strategy", name = "name", havingValue = "mostAbundant")
+    public LocationStrategy mostAbundant() {
+        return new MostAbundant(locationRepository, productRepository);
     }
 }

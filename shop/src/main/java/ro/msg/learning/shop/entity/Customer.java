@@ -2,15 +2,20 @@ package ro.msg.learning.shop.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name="customer")
+@Table(name = "customer")
 @NoArgsConstructor
 public class Customer extends GeneralEntity {
     @Column
@@ -33,12 +38,6 @@ public class Customer extends GeneralEntity {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
-    }
-
-    @Override
-    public String toString() {
-        return "Person [firstName=" + this.firstName + ", lastName=" + this.lastName
-                + "]";
     }
 
 }

@@ -1,16 +1,19 @@
 package ro.msg.learning.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name="product")
+@Table(name = "product")
 @NoArgsConstructor
-public class Product  extends GeneralEntity {
+public class Product extends GeneralEntity {
 
     public Product(String name, String description, Float price, Double weight, ProductCategory productCategory, Supplier supplier, String imageURL) {
         this.name = name;
@@ -30,34 +33,19 @@ public class Product  extends GeneralEntity {
     private Float price;
     @Column
     private Double weight;
-    @ManyToOne(targetEntity = ProductCategory.class)
-    @JoinColumn(name="category")
+    @ManyToOne
+    @JoinColumn(name = "category")
     private ProductCategory productCategory;
-    @ManyToOne(targetEntity = Supplier.class)
-    @JoinColumn(name="supplier")
+    @ManyToOne
+    @JoinColumn(name = "supplier")
     private Supplier supplier;
     @Column(name = "image_url")
     private String imageURL;
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
-    @Transient
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Stock> stocks;
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
-    @Transient
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<OrderDetail> orderDetails;
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", weight=" + weight +
-                ", productCategory=" + productCategory +
-                ", supplier=" + supplier +
-                ", imageURL='" + imageURL + '\'' +
-                ", stocks=" + stocks +
-                ", orderDetails=" + orderDetails +
-                '}';
-    }
 
 }

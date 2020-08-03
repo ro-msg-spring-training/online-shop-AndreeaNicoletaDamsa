@@ -1,14 +1,15 @@
 package ro.msg.learning.shop.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name="stock")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Stock extends GeneralEntity {
 
     @ManyToOne
@@ -20,9 +21,4 @@ public class Stock extends GeneralEntity {
 
     private Integer quantity;
 
-    public Stock(Product product, Location location, Integer quantity) {
-        this.product = product;
-        this.location = location;
-        this.quantity = quantity;
-    }
 }

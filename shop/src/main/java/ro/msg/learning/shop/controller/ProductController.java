@@ -1,14 +1,12 @@
 package ro.msg.learning.shop.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.msg.learning.shop.converter.product.ProductConverter;
-import ro.msg.learning.shop.converter.product.ProductReverseConverter;
 import ro.msg.learning.shop.dto.ProductDto;
-import ro.msg.learning.shop.entity.Customer;
 import ro.msg.learning.shop.entity.Product;
+import ro.msg.learning.shop.repository.ProductCategoryRepository;
+import ro.msg.learning.shop.repository.SupplierRepository;
 import ro.msg.learning.shop.service.ProductService;
 
 import java.util.List;
@@ -23,31 +21,31 @@ public class ProductController {
     private ProductConverter productConverter;
 
     @Autowired
-    private ProductReverseConverter productReverseConverter;
+    private SupplierRepository supplierRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+
 
     @GetMapping("/products/{id}")
-    public ProductDto getProduct(@PathVariable Integer id){
+    public ProductDto getProduct(@PathVariable Integer id) {
         Product product = productService.findById(id);
-        ProductDto productDto = productConverter.convert(product);
-        System.out.println(productDto.toString());
-        return productConverter.convert(product);
+        return productConverter.convertFromProductToDto(product);
     }
 
     @GetMapping("/products")
-    public List<ProductDto> getProducts(){
-        return productConverter.convertAll(productService.findAll());
+    public List<ProductDto> getProducts() {
+        return productConverter.convertAllFromProduct(productService.findAll());
     }
 
     @PostMapping(path = "/products", consumes = "application/json", produces = "application/json")
-    public void addProduct(@RequestBody ProductDto productDto){
-        Product product=productReverseConverter.convert(productDto);
-        productService.save(productReverseConverter.convert(productDto));
+    public void addProduct(@RequestBody ProductDto productDto) {
+        Product product = productConverter.convertFromDtoToProduct(productDto, supplierRepository, productCategoryRepository);
+        productService.save(product);
     }
 
     @DeleteMapping("/products/{id}")
-    public void deleteProduct(@PathVariable Integer id){
+    public void deleteProduct(@PathVariable Integer id) {
         Product product = productService.findById(id);
         productService.delete(product);
     }
